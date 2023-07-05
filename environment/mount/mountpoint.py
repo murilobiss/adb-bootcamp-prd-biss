@@ -23,14 +23,14 @@ scopo-kv-bootcamp-prd-wsy
 # COMMAND ----------
 
 dbutils.fs.mount(
-    source = "wasbs://sandbox@dlsbootcampprdwsy.blob.core.windows.net"
-    ,mount_point = "/mnt/sandbox/"
-    ,extra_configs = {"fs.azure.account.key.dlsbootcampprdwsy.blob.core.windows.net" :dbutils.secrets.get(scope = "scopo-kv-bootcamp-prd-wsy", key = "secret-dlsbootcampprdwsy")}
+    source = "wasbs://raw@dlsbootcampprdbiss.blob.core.windows.net"
+    ,mount_point = "/mnt/raw/"
+    ,extra_configs = {"fs.azure.account.key.dlsbootcampprdbiss.blob.core.windows.net" :dbutils.secrets.get(scope = "scopo-kv-bootcamp-prd-biss", key = "secret-dlsbootcampprdbiss")}
 )
 
 # COMMAND ----------
 
-# MAGIC %fs ls "/mnt/sandbox"
+# MAGIC %fs ls "/mnt/raw"
 
 # COMMAND ----------
 
@@ -46,13 +46,13 @@ dbutils.fs.unmount( f"/mnt/transient/")
 
 # COMMAND ----------
 
-config =  {"fs.azure.account.key.dlsbootcampprdwsy.blob.core.windows.net" :dbutils.secrets.get(scope = "scopo-kv-bootcamp-prd-wsy", key = "secret-dlsbootcampprdwsy")}
+config =  {"fs.azure.account.key.dlsbootcampprdbiss.blob.core.windows.net" :dbutils.secrets.get(scope = "scopo-kv-bootcamp-prd-biss", key = "secret-dlsbootcampprdbiss")}
 
 # COMMAND ----------
 
 # DBTITLE 1,Lista de diretórios do lake 
 #apenas os diretórios que vamos interagir
-diretorios = ['transient','raw','delta','sandbox','gerencia']
+diretorios = ['transient','raw']
 
 # COMMAND ----------
 
@@ -61,7 +61,7 @@ def mount_diretorio_lake(lst_diretorios):
     try:        
         for diretorio in lst_diretorios:
             dbutils.fs.mount(
-                source = f"wasbs://{diretorio}@dlsbootcampprdwsy.blob.core.windows.net"
+                source = f"wasbs://{diretorio}@dlsbootcampprdbiss.blob.core.windows.net"
                 ,mount_point = f"/mnt/{diretorio}/"
                 ,extra_configs = config
             )
@@ -89,8 +89,8 @@ unmount_diretorio_lake(diretorios)
 # COMMAND ----------
 
 # DBTITLE 1,listando diretórios no DBFS com o dbutils
-dbutils.fs.ls("/mnt/raw/apis/instrutores/")
+dbutils.fs.ls("/mnt/raw/")
 
 # COMMAND ----------
 
-# MAGIC %fs ls "/mnt/raw/apis/instrutores/"
+# MAGIC %fs ls "/mnt/raw"
