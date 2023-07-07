@@ -23,8 +23,8 @@ scopo-kv-bootcamp-prd-wsy
 # COMMAND ----------
 
 dbutils.fs.mount(
-    source = "wasbs://raw@dlsbootcampprdbiss.blob.core.windows.net"
-    ,mount_point = "/mnt/raw/"
+    source = "wasbs://sandbox@dlsbootcampprdbiss.blob.core.windows.net"
+    ,mount_point = "/mnt/sandbox/"
     ,extra_configs = {"fs.azure.account.key.dlsbootcampprdbiss.blob.core.windows.net" :dbutils.secrets.get(scope = "scopo-kv-bootcamp-prd-biss", key = "secret-dlsbootcampprdbiss")}
 )
 
